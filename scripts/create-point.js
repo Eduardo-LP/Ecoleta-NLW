@@ -24,6 +24,10 @@ function enableCity(event){
 
     const ufValue = event.target.value
     const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`
+
+    citySelector.innerHTML = "<option value>Selecione sua cidade</option>"
+    citySelector.disabled = true
+
     fetch(url).then(res => res.json())
     .then(cities => {
         for(let city of cities){
@@ -32,5 +36,18 @@ function enableCity(event){
         citySelector.disabled = false
     })
 }
-
+//run research
 researchStates()
+
+const itenstoCollect = document.querySelectorAll(".itens-grid li")
+
+for(let item of itenstoCollect){
+    item.addEventListener("click", handleSelectedItem)
+}
+
+function handleSelectedItem(event){
+    const itemId = event.target.dataset.id
+    //add or remove a class with Js
+    event.target.classList.toggle("selected")
+    
+}
